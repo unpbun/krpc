@@ -23,7 +23,7 @@ public class ServiceInvoke {
 	static Logger log = LoggerFactory.getLogger(ServiceInvoke.class);
 	
 	public static Object invoke(Request request) throws ClassNotFoundException {
-
+//		name="userService" impl="com.a123.service.user.impl.UserServiceImpl"
 		Object result = null;
 		Object service = Global.getInstance().getServiceImpl(request.getServiceImplName());
 		Class clazz = Global.getInstance().getServiceClass(request.getServiceImplName());

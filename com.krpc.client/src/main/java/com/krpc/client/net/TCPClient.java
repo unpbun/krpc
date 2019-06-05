@@ -28,7 +28,7 @@ public class TCPClient {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private AtomicInteger sessionId = new AtomicInteger(0);
 
-	private Map<Integer, ReceiverData> receiverDataWindow = new ConcurrentHashMap<Integer, ReceiverData>();
+	private Map<Integer, ReceiverData> receiverDataWindow = new ConcurrentHashMap();
 	
 	private  Bootstrap bootstrap;
 
@@ -72,7 +72,7 @@ public class TCPClient {
 			bootstrap = getBootstrap();
 			channel = bootstrap.connect(host, port).sync().channel();
 		} catch (Exception e) {
-			log.error("连接Server(IP{},PORT{})失败", host, port);
+			log.error("连接Server(IP{},PORT{})失败", host, port,e);
 			return null;
 		}
 		return channel;

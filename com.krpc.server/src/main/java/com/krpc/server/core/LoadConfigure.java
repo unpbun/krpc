@@ -1,9 +1,6 @@
 package com.krpc.server.core;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -44,8 +41,9 @@ public class LoadConfigure {
 		String serviceConf = serviceRootPath + File.separator + "conf";
 
 		// 读取该服务的配置文件
+		InputStream inputStream = LoadConfigure.class.getResourceAsStream("/service.xml");
 		SAXReader reader = new SAXReader();
-		Document document = reader.read(new File(serviceConf + File.separator + "service.xml"));
+		Document document = reader.read(inputStream);
 		document.setXMLEncoding("UTF-8");
 		Element node = document.getRootElement();
 
@@ -58,7 +56,7 @@ public class LoadConfigure {
 		
 		Global.getInstance().setIp(connectionNode.attributeValue("ip"));
 		
-		if(Global.getInstance().getPort()==null) {
+		if(Global.getInstance().getPort()!=null) {
 			Global.getInstance().setPort(Integer.parseInt(connectionNode.attributeValue("port")));
 		}else {
 			connectionNode.setAttributeValue("port", String.valueOf(Global.getInstance().getPort()));
@@ -103,13 +101,13 @@ public class LoadConfigure {
 			}
 		});
 
-		URL[] jarURLS = new URL[jarFiles.length];
-		for (int i = 0; i < jarFiles.length; i++) {
-			log.info("加载的类有:"+jarFiles[i].getName());
-			jarURLS[i] = jarFiles[i].toURI().toURL();
-		}
-		URLClassLoader classLoader = new URLClassLoader(jarURLS, ClassLoader.getSystemClassLoader());
-		
+//		URL[] jarURLS = new URL[jarFiles.length];
+//		for (int i = 0; i < jarFiles.length; i++) {
+//			log.info("加载的类有:"+jarFiles[i].getName());
+//			jarURLS[i] = jarFiles[i].toURI().toURL();
+//		}
+//		URLClassLoader classLoader = new URLClassLoader(jarURLS, ClassLoader.getSystemClassLoader());
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		
 		/**
 		 * 懒加载模式，在启动服务时，初始化所有实现类

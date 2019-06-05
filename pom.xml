@@ -14,6 +14,14 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<modules>
+		<module>com.krpc.client</module>
+		<module>com.krpc.server</module>
+		<module>com.krpc.common</module>
+		<module>demo/com.a123.call</module>
+		<module>demo/com.a123.service.user</module>
+		<module>demo/com.a123.service.user.impl</module>
+	</modules>
 
 	<dependencies>
 		<dependency>

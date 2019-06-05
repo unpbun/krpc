@@ -33,7 +33,7 @@ public class App {
 			final Logger log = LoggerFactory.getLogger(App.class);
 
 			// 初始KRPC服务
-			KRPC.init("src/resources/client.xml");
+			KRPC.init("/client.xml");
 
 			// 通过代理获取接口类，第二个参数为client.xml文件中服务的名字,第三个参数为该接口具体实现的名字，需要跟该服务的配置文件的name值一样
 			UserService service = ProxyFactory.create(UserService.class, "user", "userService");

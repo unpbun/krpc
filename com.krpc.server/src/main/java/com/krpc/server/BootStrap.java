@@ -37,8 +37,12 @@ import io.netty.handler.codec.bytes.ByteArrayEncoder;
  *
  */
 public class BootStrap {
+	private static final Logger log = LoggerFactory.getLogger(BootStrap.class);
+
 
 	public static void main(String[] args) {
+		String[] arrs={"users","8080"};
+		args = arrs;
 		try {
 			if (args.length > 0) {
 				// 初始化项目路径
@@ -55,8 +59,7 @@ public class BootStrap {
 				String serviceRootPath = rootPath + "service" + File.separator + serviceName + File.separator;
 
 				// 初始化log4j
-				DOMConfigurator.configure(serviceRootPath + File.separator + "conf" + File.separator + "log4j.xml");
-				Logger log = LoggerFactory.getLogger(BootStrap.class);
+//				DOMConfigurator.configure(serviceRootPath + File.separator + "conf" + File.separator + "log4j.xml");
 
 				// 加载配置文件，并初始化相关内容
 				LoadConfigure.load(serviceRootPath);
@@ -98,7 +101,5 @@ public class BootStrap {
 			System.out.println("启动失败");
 			e.printStackTrace();
 		}
-
 	}
-
 }

@@ -1,10 +1,15 @@
 package com.krpc.client;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
+import com.sun.xml.internal.ws.api.ResourceLoader;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -30,7 +35,7 @@ import com.krpc.client.entity.ServiceParams;
 
 public class KRPC {
 
-	private static Map<String,ServiceParams> serviceCache = new HashMap<String,ServiceParams>();
+	private static Map<String,ServiceParams> serviceCache = new HashMap<>();
 	
 	/**
 	 * 初始化客户端配置文件
@@ -41,8 +46,11 @@ public class KRPC {
 	public static void init(String clientPath) throws Exception {
 
 		// 读取该服务的配置文件
+		InputStream inputStream = KRPC.class.getResourceAsStream("/client.xml");
+		String path =  KRPC.class.getResource(clientPath).getPath();
 		SAXReader reader = new SAXReader();
-		Document document = reader.read(new File(clientPath));
+		Document document = reader.read(new File(path));
+
 		Element root = document.getRootElement();
 
 		List<Element> serviceNodes = root.elements("Service");

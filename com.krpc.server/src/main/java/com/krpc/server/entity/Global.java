@@ -17,7 +17,7 @@ public class Global {
 	};
 	
 	private static class SingleHolder{
-		private static final Global INSTANCE = new Global();
+		private final static Global INSTANCE = new Global();
 	}
 	
 	/**
